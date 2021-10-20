@@ -8,6 +8,10 @@ const notesApiRouter = require("./api-route");
 // Set the URL route to look for /notes to access the notes API
 routerApp.use("/notes", notesApiRouter);
 
+routerApp.get("/", (req, res) => {
+    console.log("get request hit");
+})
+
 // Export this
 module.exports = routerApp;
 

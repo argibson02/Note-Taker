@@ -4,7 +4,7 @@ const path = require('path');
 const routerApp = require('./routes/html-route');
 
 // Our PORt is either 3000 for local or the host (Heroku) PORT
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Invoke express
 const app = express();
@@ -25,11 +25,11 @@ app.get("/", (req, res) =>
 );
 
 // may not need this because of the router
-// app.get("/notes", (req, res) =>
-//     res.sendFile(path.join(__dirname, "/public/notes.html"))
-// );
+app.get("/notes", (req, res) =>
+    res.sendFile(path.join(__dirname, "/public/notes.html"))
+);
 
 // Listener
 app.listen(PORT, () =>
-console.log(`Note is listening and available in at http://localhost${PORT}`)
+console.log(`Note is listening and available at http://localhost${PORT}/`)
 );
