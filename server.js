@@ -1,7 +1,6 @@
 // General Express declarations and requires
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
 const routerApp = require('./routes/html-route');
 
 // Our PORt is either 3000 for local or the host (Heroku) PORT
@@ -25,6 +24,7 @@ app.get("/", (req, res) =>
     res.sendFile(path.join(__dirname, "/public/index.html"))
 );
 
+// may not need this because of the router
 // app.get("/notes", (req, res) =>
 //     res.sendFile(path.join(__dirname, "/public/notes.html"))
 // );
