@@ -18,16 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
-
-
-
 // Set the URL route to look for /notes to access the notes API
 // routerApp.use("/notes", notesApiRouter);
 
 routerApp.use("/notes", notesApiRouter);
-
-
-
 
 
 // If /notes is used, we defer to the router in html-route for further instructions
