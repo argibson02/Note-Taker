@@ -9,22 +9,15 @@ const fs = require('fs');
 const readFromFile = util.promisify(fs.readFile);
 
 
-
-
-
-
-console.log("3");
 // GET notes saved on db.json
 notes.get("/api/notes", (req, res) => {
     console.log("get request hit");
     // promisifies it so that action is only taken when all the body has been received 
-
-    readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
-
-
-
-    
+    readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));    
 });
+
+
+
 
 
 notes.post('/api/notes', (req, res) => {
