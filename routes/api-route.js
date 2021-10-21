@@ -58,21 +58,21 @@ notes.post('/api/notes', (req, res) => {
 });
 
 
-// GET note by unique ID saved on db.json
-notes.delete("/api/notes/:id", (req, res) => {
-    console.log(req.params.id);
+// // GET note by unique ID saved on db.json
+// notes.delete("/api/notes/:id", (req, res) => {
+//     console.log(req.params.id);
 
 
-    // promisifies it so that action is only taken when all the body has been received 
-    readFromFile("./db/db.json").then((data) => {
-        let parsed = JSON.parse(data)
-        res.json(parsed[req.params.id])   
-    })
+//     // promisifies it so that action is only taken when all the body has been received 
+//     readFromFile("./db/db.json").then((data) => {
+//         let parsed = JSON.parse(data)
+//         res.json(parsed[req.params.id])   
+//     })
 
 
 
 
-});
+// });
 
 
 
