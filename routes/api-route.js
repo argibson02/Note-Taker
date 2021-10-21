@@ -10,14 +10,15 @@ const readFromFile = util.promisify(fs.readFile);
 
 // GET notes saved on db.json
 notes.get("/api/notes", (req, res) => {
-    console.log("get request hit");
+    // console.log("get request hit");
     // promisifies it so that action is only taken when all the body has been received 
     readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));    
 });
 
-// need to add id
+
+// GET note by unique ID saved on db.json
 notes.get("/api/notes/:id", (req, res) => {
-    console.log("id get request hit");
+    // console.log("id get request hit");
     // promisifies it so that action is only taken when all the body has been received 
     readFromFile("./db/db.json").then((data) => {
         let parsed = JSON.parse(data)
@@ -26,8 +27,7 @@ notes.get("/api/notes/:id", (req, res) => {
 });
 
 
-
-
+// Post notes and given them unique IDs
 notes.post('/api/notes', (req, res) => {
     req.body.id = uuidv4();
 
@@ -50,12 +50,30 @@ notes.post('/api/notes', (req, res) => {
     }
     readAndAppend(req.body, "./db/db.json");
 
-    console.log(req.body);
+    // console.log(req.body);
     const notePost = {
         body: req.body
     }
     res.json(notePost);
 });
+
+
+// GET note by unique ID saved on db.json
+notes.delete("/api/notes/:id", (req, res) => {
+    console.log(req.params.id);
+
+
+    // promisifies it so that action is only taken when all the body has been received 
+    readFromFile("./db/db.json").then((data) => {
+        let parsed = JSON.parse(data)
+        res.json(parsed[req.params.id])   
+    })
+
+
+
+
+});
+
 
 
 module.exports = notes
