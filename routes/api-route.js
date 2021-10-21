@@ -16,14 +16,14 @@ notes.get("/api/notes", (req, res) => {
 });
 
 // need to add id
-// notes.get("/api/notes/:id", (req, res) => {
-//     console.log("id get request hit");
-//     // promisifies it so that action is only taken when all the body has been received 
-//     readFromFile("./db/db.json").then((data) => {
-//         let parsed = JSON.parse(data)
-//         res.json(parsed[req.params.id])   
-//     })
-// });
+notes.get("/api/notes/:id", (req, res) => {
+    console.log("id get request hit");
+    // promisifies it so that action is only taken when all the body has been received 
+    readFromFile("./db/db.json").then((data) => {
+        let parsed = JSON.parse(data)
+        res.json(parsed[req.params.id])   
+    })
+});
 
 
 
