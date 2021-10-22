@@ -1,4 +1,4 @@
-# Note-Taker
+# Note Taker Web App
   -----------------
 
 ## Table of Contents
