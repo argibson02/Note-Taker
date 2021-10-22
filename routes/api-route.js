@@ -1,3 +1,4 @@
+//================================================ Global variable declarations
 const notes = require('express').Router();
 const util = require('util');
 const fs = require('fs');
@@ -5,36 +6,40 @@ const fs = require('fs');
 // import of uuid (unique id tool)
 const { v4: uuidv4 } = require('uuid');
 
+
+
+//=================================================== Global read and write functions/variables
 const readFromFile = util.promisify(fs.readFile);
 
+function writeToFile(destination, content) {
+    fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
+        err ? console.error(err) : console.info(`\nData written to ${destination}`)
+    )
+};
 
+
+
+//==================================================== GET, GET by ID, POST with new ID, DELETE
 // GET notes saved on db.json
 notes.get("/api/notes", (req, res) => {
-    // console.log("get request hit");
     // promisifies it so that action is only taken when all the body has been received 
-    readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));    
+    readFromFile("./db/db.json").then((data) => res.json(JSON.parse(data)));
 });
 
 
 // GET note by unique ID saved on db.json
 notes.get("/api/notes/:id", (req, res) => {
-    // console.log("id get request hit");
     // promisifies it so that action is only taken when all the body has been received 
     readFromFile("./db/db.json").then((data) => {
         let parsed = JSON.parse(data)
-        res.json(parsed[req.params.id])   
+        res.json(parsed[req.params.id])
     })
 });
 
 
-// Post notes and given them unique IDs
+// POST notes and given them unique IDs
 notes.post('/api/notes', (req, res) => {
     req.body.id = uuidv4();
-
-    function writeToFile(destination, content) {
-    fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
-      err ? console.error(err) : console.info(`\nData written to ${destination}`)
-    )};
 
     function readAndAppend(content, file) {
         fs.readFile(file, 'utf8', (err, data) => {
@@ -42,7 +47,7 @@ notes.post('/api/notes', (req, res) => {
                 console.error(err);
             }
             else {
-                const parsedData = JSON.parse(data);
+                let parsedData = JSON.parse(data);
                 parsedData.push(content);
                 writeToFile(file, parsedData);
             }
@@ -50,30 +55,34 @@ notes.post('/api/notes', (req, res) => {
     }
     readAndAppend(req.body, "./db/db.json");
 
-    // console.log(req.body);
-    const notePost = {
+    let notePost = {
         body: req.body
     }
     res.json(notePost);
 });
 
 
-// // GET note by unique ID saved on db.json
-// notes.delete("/api/notes/:id", (req, res) => {
-//     console.log(req.params.id);
+// DELETE note by by filtering out unique ID and rewriting file.
+notes.delete("/api/notes/:id", (req, res) => {
+    // console.log(req.params.id);
+    let currentId = req.params.id;
 
+    function readRemoveRewrite(content, file) {
+        fs.readFile(file, 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+            }
+            else {
+                let parsed = JSON.parse(data);
+                let sansCurrentId = parsed.filter(note => note.id !== currentId);
+                writeToFile(file, sansCurrentId);
+                res.json(sansCurrentId);
+            }
+        })
+    }
+    readRemoveRewrite(req.body, "./db/db.json");
 
-//     // promisifies it so that action is only taken when all the body has been received 
-//     readFromFile("./db/db.json").then((data) => {
-//         let parsed = JSON.parse(data)
-//         res.json(parsed[req.params.id])   
-//     })
-
-
-
-
-// });
-
+});
 
 
 module.exports = notes
