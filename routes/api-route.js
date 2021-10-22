@@ -14,8 +14,8 @@ const readFromFile = util.promisify(fs.readFile);
 function writeToFile(destination, content) {
     fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
         err ? console.error(err) : console.info(`\nData written to ${destination}`)
-    )
-};
+    );
+}
 
 
 
@@ -31,9 +31,9 @@ notes.get("/api/notes", (req, res) => {
 notes.get("/api/notes/:id", (req, res) => {
     // promisifies it so that action is only taken when all the body has been received.
     readFromFile("./db/db.json").then((data) => {
-        let parsed = JSON.parse(data) // parses data to JSON object.
-        res.json(parsed[req.params.id]) // returns only the object with uuid that you had just selected.
-    })
+        let parsed = JSON.parse(data); // parses data to JSON object.
+        res.json(parsed[req.params.id]); // returns only the object with uuid that you had just selected.
+    });
 });
 
 
@@ -58,12 +58,12 @@ notes.post('/api/notes', (req, res) => {
 
     let notePost = {
         body: req.body
-    }
-    res.json(notePost); // hmmmm, could put inside readAppendRewrite???
+    };
+    res.json(notePost);
 });
 
 
-// DELETE note by by filtering out unique ID and rewriting file.               // how is delete different from post? I am technically using this wrong?
+// DELETE note by by filtering out unique ID and rewriting file.
 notes.delete("/api/notes/:id", (req, res) => {
 
     let currentId = req.params.id; // Preps for filtering out this ID
@@ -79,11 +79,11 @@ notes.delete("/api/notes/:id", (req, res) => {
                 writeToFile(file, sansCurrentId); // Rewrites the database file with the new object.
                 res.json(sansCurrentId);
             }
-        })
+        });
     }
     readRemoveRewrite(req.body, "./db/db.json"); // invokes function with passed values
 
 });
 
 
-module.exports = notes
+module.exports = notes;

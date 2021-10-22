@@ -14,15 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
-// const routerApp = require('./routes/html-route');
-// const notesApiRouter = require("./routes/api-route");
-// routerApp.use("/notes", notesApiRouter);
-// app.use("/" , routerApp);
-
 const routerApp = require('./routes/html-route');
 const notesApiRouter = require("./routes/api-route");
 app.use('/', notesApiRouter);
-app.use('/', routerApp);
+app.use('/', routerApp); // always keep this one last because of the * in html-route
 
 
 // Listener

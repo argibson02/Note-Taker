@@ -3,15 +3,16 @@ const express = require('express');
 const routerApp = express();
 const path = require('path');
 
-// const notesApiRouter = require("./api-route"); //<-- why not this one?
-// routerApp.use("/notes", notesApiRouter); //<-- why not this one?
+routerApp.get("/", (req, res) =>
+    res.sendFile(path.join(__dirname, "../public/index.html"))
+);
 
 routerApp.get("/notes", (req, res) =>
     res.sendFile(path.join(__dirname, "../public/notes.html"))
 );
 
 routerApp.get("*", (req, res) =>
-    res.sendFile(path.join(__dirname, "../public/index.html"))
+    res.sendFile(path.join(__dirname, "../public/index.html")) // always keep last
 );
 
 

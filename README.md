@@ -11,11 +11,11 @@
 
 
 ## Description
-This is a note taking app that utilizes Node.js, Express.js, and Heroku for persistent data storage. 
+This is a note taking app that utilizes Node.js, Express.js, and Heroku. Don't want to kill another tree? Write your notes in here! 
 
 Features
-*
-*
+* Persistent data storage of notes.
+* Add and delete buttons for notes.
 
 [Click this link to go to the Note Taker web app!](https://protected-badlands-46826.herokuapp.com/)
 
