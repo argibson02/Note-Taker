@@ -13,7 +13,7 @@
 ## Description
 Don't want to kill another tree? Write your notes in here! This is a note taking app that utilizes Node.js, Express.js, and Heroku.
 
-Features
+Features~~
 * Persistent data storage of notes.
 * Add and delete buttons for notes.
 
